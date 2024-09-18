@@ -23,13 +23,13 @@ const GroupList = ({ groups, onBack }) => {
 
     const shuffleArray = (array) => {
         let currentIndex = array.length, randomIndex;
-        
+
         while (currentIndex !== 0) {
             randomIndex = Math.floor(Math.random() * currentIndex);
             currentIndex--;
             [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
         }
-        
+
         return array;
     };
 
@@ -87,7 +87,7 @@ const GroupList = ({ groups, onBack }) => {
                             Download Image Bro
                         </button>
                         <button className='btn btn-primary mt-2 block mx-auto text-slate-200'
-                        onClick={() => setIsModalOpen(true)}
+                            onClick={() => setIsModalOpen(true)}
                         >
                             Bagi soal😔
                         </button>
@@ -99,41 +99,44 @@ const GroupList = ({ groups, onBack }) => {
 
             {isModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-                    <div className="card bg-slate-300 text-neutral-content py-6 px-8 w-1/5">
-                        <h2 className="text-xl font-semibold mb-4 text-slate-800">Bagi Soal ke Kelompok</h2>
-                        <form onSubmit={handleBagiSoal}>
-                            <div className="mb-4">
-                                <label htmlFor="jumlahSoal" className="block text-sm font-medium text-gray-700">
-                                    Jumlah Soal:
-                                </label>
-                                <input
-                                    type="number"
-                                    id="jumlahSoal"
-                                    value={jumlahSoal}
-                                    onChange={(e) => setJumlahSoal(e.target.value)}
-                                    className="mt-1 block w-full px-3 py-2 bg-slate-90000 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                                    required
-                                />
-                            </div>
-                            <div className="flex justify-end gap-2">
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary text-slate-800"
-                                    onClick={() => setIsModalOpen(false)}
-                                >
-                                    Batal
-                                </button>
-                                <button
-                                    type="submit"
-                                    className="btn btn-primary text-slate-80000"
-                                >
-                                    Bagikan Soal
-                                </button>
-                            </div>
-                        </form>
+                    <div className="card bg-neutral text-neutral-content w-96">
+                        <div className="card-body items-center text-center">
+                            <h2 className="card-title">Bagi Soal ke Kelompok</h2>
+                            <form onSubmit={handleBagiSoal} className="w-full">
+                                <div className="mb-4 text-left">
+                                    <label htmlFor="jumlahSoal" className="block text-sm font-medium text-gray-300">
+                                        Jumlah Soal:
+                                    </label>
+                                    <input
+                                        type="number"
+                                        id="jumlahSoal"
+                                        value={jumlahSoal}
+                                        onChange={(e) => setJumlahSoal(e.target.value)}
+                                        className="mt-1 block w-full px-3 py-2 bg-neutral-focus border border-gray-500 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                                        required
+                                    />
+                                </div>
+                                <div className="card-actions justify-end">
+                                    <button
+                                        type="button"
+                                        className="btn btn-ghost"
+                                        onClick={() => setIsModalOpen(false)}
+                                    >
+                                        Batal
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary"
+                                    >
+                                        Bagikan Soal
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
