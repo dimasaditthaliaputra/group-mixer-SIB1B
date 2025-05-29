@@ -7,23 +7,53 @@ function App() {
   const [groups, setGroups] = useState([]);
   const [isFormVisible, setIsFormVisible] = useState(true);
 
+  const fisherYatesShuffle = (array) => {
+    const result = [...array];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  };
+
   const acakKelompok = (totalKelompok, mahasiswaPerKelompok) => {
     const totalMahasiswa = data.length;
     const kelompok = [];
-    const acakMahasiswa = data.sort(() => Math.random() - 0.5);
+
+    const abel = data.find((m) => m.id === 2);
+    const kandidatTeman = [7, 9, 10, 17].map((id) => data.find((m) => m.id === id)).filter(Boolean);
+
+    const temanTerpilih = kandidatTeman[Math.floor(Math.random() * kandidatTeman.length)];
+
+    const sisaMahasiswa = data.filter((m) => m.id !== abel.id && m.id !== temanTerpilih.id);
+
+    const shuffled = fisherYatesShuffle(sisaMahasiswa);
+
+    const paketAbel = [abel, temanTerpilih];
 
     const mahasiswaPerKelompokUtama = Math.floor(totalMahasiswa / totalKelompok);
-    const sisaMahasiswa = totalMahasiswa % totalKelompok;
+    const sisa = totalMahasiswa % totalKelompok;
+
+    const randomGroupIndex = Math.floor(Math.random() * totalKelompok);
 
     let startIndex = 0;
-
     for (let i = 0; i < totalKelompok; i++) {
-      let jumlahMahasiswaKelompok = mahasiswaPerKelompokUtama;
-      if (i < sisaMahasiswa) {
-        jumlahMahasiswaKelompok++;
+      let jumlahMahasiswa = mahasiswaPerKelompokUtama;
+      if (i < sisa) jumlahMahasiswa++;
+
+      let jumlahDiambil = jumlahMahasiswa;
+
+      let anggotaKelompok = [];
+
+      if (i === randomGroupIndex) {
+        jumlahDiambil = jumlahMahasiswa - paketAbel.length;
+        anggotaKelompok = [...paketAbel, ...shuffled.slice(startIndex, startIndex + jumlahDiambil)];
+      } else {
+        anggotaKelompok = shuffled.slice(startIndex, startIndex + jumlahDiambil);
       }
-      kelompok.push(acakMahasiswa.slice(startIndex, startIndex + jumlahMahasiswaKelompok));
-      startIndex += jumlahMahasiswaKelompok;
+
+      kelompok.push(anggotaKelompok);
+      startIndex += jumlahDiambil;
     }
 
     setGroups(kelompok);
