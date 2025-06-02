@@ -7,3 +7,18 @@ body {
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
 }
+
+.roulette-wheel {
+  width: 200px;
+  height: 200px;
+  border: 10px solid #fff;
+  border-radius: 50%;
+  border-top: 10px solid #e11d48; /* merah buat "pointer" */
+  animation: spin 2s ease-in-out infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(1080deg); }
+}
