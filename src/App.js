@@ -25,7 +25,7 @@ function App() {
       const kelompok = [];
 
       const abel = data.find((m) => m.id === 2);
-      const kandidatTeman = [7, 9, 10, 17]
+      const kandidatTeman = [6]
         .map((id) => data.find((m) => m.id === id))
         .filter(Boolean);
 
